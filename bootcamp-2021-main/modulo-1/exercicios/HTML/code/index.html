@@ -1,9 +1,44 @@
 <html lang="pt-br">
+
 <head>
   <meta charset="UTF-8">
   <title>Document</title>
 </head>
+
 <body>
-  
+  <pre>
+  <code>
+    import java.net.URI;
+    import java.util.List;
+    import java.util.Optional;
+    
+
+    @RestController
+    @RequestMapping("/topicos")
+    public class TopicosController {
+
+      @Autowired
+      private TopicoRepository topicoRepository;
+    
+      @Autowired
+      private CursoRepository cursoRepository;
+    
+      @GetMapping
+      public List<TopicoDto> lista(String nomeCurso) {
+        if (nomeCurso == null) {
+          List<Topico> topicos = topicoRepository.findAll();
+          return TopicoDto.converter(topicos);
+        } else {
+          List<Topico> topicos = topicoRepository.findByCurso_Nome(nomeCurso);
+          return TopicoDto.converter(topicos);
+        }
+    
+      }
+
+    }
+
+  </code>
+</pre>
 </body>
+
 </html>
